@@ -3,29 +3,32 @@ from constants import *
 from player import Player
 
 def main():
-    print("Starting Asteroids!")
-    print(f"Screen width: {SCREEN_WIDTH}")
-    print(f"Screen height: {SCREEN_HEIGHT}")
-    is_running = True
-    dt = 0.0
-    game_clock = pygame.time.Clock()
-    pygame.init()        
+    print("Asteroids v1.0.0")
+    pygame.init()
+    deltaTime = 0.0
+    game_clock = pygame.time.Clock()    
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    updateable = pygame.sprite.Group()
+    drawable = pygame.sprite.Group()
+
     
+    Player.containers = (updateable, drawable)
     player = Player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
-    while is_running:
+    while True:
         # UPDATE
-        player.update(dt)
+        for entry in updateable:
+            entry.update(deltaTime)
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
-        
         # DRAW
         screen.fill("black")
-        player.draw(screen)        
+        for entry in drawable:
+            entry.draw(screen)
 
         pygame.display.flip()
-        dt = game_clock.tick(60)/1000.0        
+        deltaTime = game_clock.tick(60)/1000.0
         
 
 if __name__ == "__main__":
