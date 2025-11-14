@@ -8,6 +8,9 @@ from shot import Shot
 
 def main():
     print("Asteroids v1.0.0")
+    print("Starting Asteroids")
+    print(f"Screen width: {SCREEN_WIDTH}")
+    print(f"Screen height: {SCREEN_HEIGHT}")
     pygame.init()
     deltaTime = 0.0
     game_clock = pygame.time.Clock()    
