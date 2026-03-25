@@ -9,7 +9,7 @@ def main():
     print(f"Screen height: {SCREEN_HEIGHT}")
 
     pygame.init()
-    delta_time = 0.0
+    dt = 0.0
     game_clock = pygame.time.Clock()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     player = Player(SCREEN_WIDTH*0.5, SCREEN_HEIGHT*0.5)
@@ -18,12 +18,16 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
-        
+
+        #update
+        player.update(dt)
+
+        #draw        
         screen.fill("black")
         player.draw(screen)
 
         pygame.display.flip()
-        delta_time = game_clock.tick(60.0)/1000.0
+        dt = game_clock.tick(60.0)/1000.0
 
 
 if __name__ == "__main__":
