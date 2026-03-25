@@ -15,15 +15,25 @@ class Player(CircleShape):
         c = self.position - forward * self.radius + right
         return [a, b, c]
     
-    def rotate(self, delta_time):
-        self.rotation += PLAYER_TURN_SPEED*delta_time
+    def rotate(self, dt):
+        self.rotation += PLAYER_TURN_SPEED*dt
+
+    def move(self, dt):
+        axis_y = pygame.Vector2(0, 1)
+        forward = axis_y.rotate(self.rotation)
+        velocity = forward * PLAYER_SPEED * dt
+        self.position += velocity
 
     def update(self, dt):        
         keys = pygame.key.get_pressed()
-        if keys[pygame.K_a]:
+        if keys[pygame.K_LEFT]:
             self.rotate(-dt)
-        if keys[pygame.K_d]:
+        if keys[pygame.K_RIGHT]:
             self.rotate(dt)
+        if keys[pygame.K_UP]:
+            self.move(dt)
+        if keys[pygame.K_DOWN]:
+            self.move(-dt)
         
 
     def draw(self, screen):
