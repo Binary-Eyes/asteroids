@@ -1,5 +1,6 @@
 import pygame
 from logger import log_state
+from player import Player
 from constants import *
 
 def main():
@@ -11,13 +12,16 @@ def main():
     delta_time = 0.0
     game_clock = pygame.time.Clock()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    player = Player(SCREEN_WIDTH*0.5, SCREEN_HEIGHT*0.5)
     while True:
         log_state()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
-
+        
         screen.fill("black")
+        player.draw(screen)
+
         pygame.display.flip()
         delta_time = game_clock.tick(60.0)/1000.0
 
